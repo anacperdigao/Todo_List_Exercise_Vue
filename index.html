@@ -21,22 +21,28 @@
                 <h3>Lista de Tarefas</h3>
                 
                 <div class="all-todos">
-                    <div class="single-todo done">
-                        <p>Aprender HTML, CSS e Javascript</p>
-                    </div>
-                    <div class="single-todo done">
-                        <p>Aprender o básico de Vue JS</p>
-                    </div>
-                    <div class="single-todo">
-                        <p>Completar o desafio de Vue JS com excelência</p>
+
+                    <div 
+                        v-for="item in itensList"
+                        class="single-todo" 
+                        @click="item.status = !item.status" 
+                        :class= "{done: item.status == true}"
+                    >
+                        <p>{{item.text}}</p>
                     </div>
 
                 </div>
 
-                <button class="clear">Limpar tudo</button>
+                <button 
+                    @click="cleanAll" 
+                    class="clear"
+                    v-if="itensList.length > 0"
+                >
+                    Limpar tudo
+                </button>
 
-                <input type="text" placeholder="Escreva uma nova tarefa...">
-                <button class="add">Adicionar</button>
+                <input v-model="newItem.text" type="text" placeholder="Escreva uma nova tarefa...">
+                <button @click="addNewItem" class="add">Adicionar</button>
 
                 <div class="instructions">
                     Instruções:
@@ -49,7 +55,7 @@
             </section>
 
         </main>
-        <script src="https://unpkg.com/vue@next"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="scripts.js"></script>
     </body>
 
